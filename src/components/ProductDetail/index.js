@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 
-import { fetchProductDetail } from "./../../utils/api";
+import { fetchProductDetail } from "./../../utils/api"
+import { formatPrice } from './../../utils/currencyHelper'
 
-import "./style.css";
+import "./style.css"
 
 function ProductDetail({ productId }) {
-  const [productInfo, setProductInfo] = useState(null);
+  const [productInfo, setProductInfo] = useState(null)
 
   useEffect(() => {
     if (!productId) return;
@@ -13,13 +14,15 @@ function ProductDetail({ productId }) {
     fetchProductDetail(productId).then((productInfo) =>
       setProductInfo(productInfo)
     );
-  }, [productId]);
+  }, [productId])
 
   const renderProductInfo = () => {
+    const formattedPrice = productInfo && productInfo.price ? formatPrice(productInfo.price) : ''
+
     return (
       <div className="detail-container">
         <div className="row">
-          <img src={productInfo.image} className="product-image" />
+          <img src={productInfo.image} className="product-image" alt="product img"/>
         </div>
         <div className="row">
           <div className="row-title">Name:</div>
@@ -31,13 +34,13 @@ function ProductDetail({ productId }) {
         </div>
         <div className="row">
           <div className="row-title">Price:</div>
-          <div className="row-body">{productInfo.price}</div>
+          <div className="row-body">{formattedPrice}</div>
         </div>
       </div>
     );
   };
 
-  return productInfo && renderProductInfo();
+  return productInfo && renderProductInfo()
 }
 
-export default ProductDetail;
+export default ProductDetail
