@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-import { fetchSuggestions } from "./utils/api";
+import { fetchSuggestions } from "./../../utils/api";
 
-import "./Autocomplete.css";
+import "./style.css";
 
 function Autocomplete() {
   const [searchTerm, setSearchTerm] = useState("");
